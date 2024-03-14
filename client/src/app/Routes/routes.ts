@@ -5,6 +5,7 @@ import { Home } from "src/pages/home/Home";
 import { Product } from "src/pages/product/Product";
 import { Profile } from "src/pages/profile/Profile";
 import { Catalog } from "src/pages/catalog/Catalog";
+import { Favorites } from "src/pages/favorites/Favorites";
 
 interface IRoute {
     path: string;
@@ -38,6 +39,10 @@ export const authRoute: IRoute[] = [
     {
         path: "/basket",
         Component: Basket,
+    },
+    {
+        path: "/favorites",
+        Component: Favorites,
     },
     {
         path: "/profile/:userId",

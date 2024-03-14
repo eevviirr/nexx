@@ -4,7 +4,7 @@ class ProductControllers {
     async getProducts(req, res) {
         try {
             const {brands, search} = req.query
-            const products = await Product.find(brands ? {brand:brands.toLowerCase().split(',')} : search ? {$or:[ { brand: { $regex: search, $options: 'i' } } ] } : {});
+            const products = await Product.find(brands ? {brand:brands.toLowerCase().split(',')} : search ? {$or:[ { brand: { $regex: search, $options: 'i' } }, { model: { $regex: search, $options: 'i' } } ] } : {});
             res.status(200).json(products);
         } catch (error) {
             console.log(error);

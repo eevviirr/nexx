@@ -52,7 +52,6 @@ export const getUser = createAsyncThunk("getUser", async () => {
         return res.data;
       })
       .catch((err) => {
-        console.log(err);
         if (err.response.data.message === "Нет доступа") {
           localStorage.removeItem("token");
         }
@@ -71,6 +70,7 @@ const userSlice = createSlice({
     logOut(state) {
       state.user = initialState.user;
       state.isAuth = false;
+      location.reload();
     },
     addItemToCart(state, { payload }) {
       let newCart = [...(state.user.basket as productType[])];
@@ -91,6 +91,17 @@ const userSlice = createSlice({
       }
 
       state.user.basket = newCart;
+      updateUser(state.user);
+    },
+    removeItemCart(state, { payload }) {
+      let newFavorite = [...(state.user.basket as productType[])];
+      const foundItemIndex = newFavorite.findIndex(
+        ({ _id }) => _id === payload._id
+      );
+      if (foundItemIndex !== -1) {
+        newFavorite = newFavorite.filter((item) => item._id !== payload._id);
+      }
+      state.user.basket = newFavorite;
       updateUser(state.user);
     },
     addItemToFavorite(state, { payload }) {
@@ -117,10 +128,11 @@ const userSlice = createSlice({
         state.user = action.payload;
         state.status = "succeeded";
         state.isAuth = true;
+        location.reload();
       })
       .addCase(loginUser.rejected, (state) => {
         state.user = initialState.user;
-        state.status = "error";
+        state.status = "Не верный логин или пароль";
       })
 
       .addCase(registerUser.pending, (state) => {
@@ -131,10 +143,11 @@ const userSlice = createSlice({
         state.user = action.payload;
         state.status = "succeeded";
         state.isAuth = true;
+        location.reload();
       })
       .addCase(registerUser.rejected, (state) => {
         state.user = initialState.user;
-        state.status = "error";
+        state.status = "Пользователь с таким email уже существует";
       })
 
       .addCase(getUser.pending, (state) => {
@@ -157,5 +170,6 @@ const userSlice = createSlice({
   },
 });
 
-export const { logOut, addItemToCart, addItemToFavorite } = userSlice.actions;
+export const { logOut, addItemToCart, addItemToFavorite, removeItemCart } =
+  userSlice.actions;
 export default userSlice.reducer;

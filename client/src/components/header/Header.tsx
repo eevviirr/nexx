@@ -1,9 +1,10 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import style from "./header.module.css";
 import { Search } from "src/features/search/Search";
 import { Logotype } from "src/shared/logotype/Logotype";
+import heartIcon from "src/app/assets/heart.svg";
 import basketIcon from "src/app/assets/basket.svg";
 import { Navigation } from "./Navigation";
 import { useAppSelector } from "src/app/hooks/useAppSelector";
@@ -14,8 +15,6 @@ import { setSearch } from "src/app/store/slices/searchSlice";
 const Header: FC = () => {
   const user = useAppSelector((state) => state.userSlice);
   const search = useAppSelector((state) => state.searchSlice.search);
-  const [sexActive, setSexActive] = useState(0);
-  const sex = ["Мужчинам", "Женьщинам"];
   const navigate = useNavigate();
   const onFocus = () => {
     navigate("/search");
@@ -23,7 +22,7 @@ const Header: FC = () => {
   const onBlur = () => {
     navigate(-1);
   };
-  
+
   const dispatch = useAppDispatch();
   return (
     <header className="py-8 container">
@@ -33,24 +32,13 @@ const Header: FC = () => {
           onFocus={onFocus}
           onBlur={onBlur}
           search={search}
-          setSearch={e => dispatch(setSearch(e.currentTarget.value))}
+          setSearch={(e) => dispatch(setSearch(e.currentTarget.value))}
         />
-        <ul className="flex gap-10 items-center justify-center">
-          {sex.map((item, i) => (
-            <li
-              key={i}
-              onClick={() => setSexActive(i)}
-              className={`${sexActive === i ? "font-bold" : ""} cursor-pointer`}
-            >
-              {item}
-            </li>
-          ))}
-        </ul>
-        <div className="flex gap-10 items-center justify-end">
+        <div className="flex gap-4 items-center justify-end max-xl:justify-start max-md:col-span-2">
           {user.isAuth ? (
             <>
               <span
-                className="font-bold cursor-pointer"
+                className="font-bold cursor-pointer mr-10"
                 onClick={() => {
                   localStorage.removeItem("token");
                   dispatch(logOut());
@@ -58,18 +46,19 @@ const Header: FC = () => {
               >
                 Выход
               </span>
-              <Link to={"/basket"} className="flex items-center gap-2">
-                Корзина
+              <Link to={"/favorites"}>
+                <img src={heartIcon} alt="basketIcon" />
+              </Link>
+              <Link to={"/basket"} className="flex items-center gap-2 relative">
                 <img src={basketIcon} alt="basketIcon" />
-                <div className="relative">
-                  {user && user.user.basket.length > 0 && (
-                    <span className="w-6 h-6 bg-red-400 absolute -top-2 -right-3 rounded-full flex items-center justify-center text-white p-1">
-                      {user.user.basket.length > 9
-                        ? "9+"
-                        : user?.user.basket.length}
-                    </span>
-                  )}
-                </div>
+
+                {user && user.user.basket.length > 0 && (
+                  <span className="w-6 h-6 bg-red-400 absolute -top-2 -right-3 rounded-full flex items-center justify-center text-white p-1">
+                    {user.user.basket.length > 9
+                      ? "9+"
+                      : user?.user.basket.length}
+                  </span>
+                )}
               </Link>
             </>
           ) : (
