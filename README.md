@@ -4,17 +4,17 @@
 
    в первом:
    
-     - cd server
+     cd server
      
-     - npm install
+     npm install
      
-     - npm run dev
+     npm run dev
 
 
    во втором:
    
-     - cd client
+     cd client
      
-     - npm install
+     npm install
      
-     - npm run dev 
+     npm run dev 
