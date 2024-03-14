@@ -1,0 +1,13 @@
+.select {
+    outline: none;
+    border: none;
+    background: transparent;
+    font-weight: 700;
+
+    transition: 1s;
+}
+
+.select option {
+    background-color: transparent;
+    border: none;
+}
