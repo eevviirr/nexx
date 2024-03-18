@@ -8,7 +8,7 @@ import authRouter from "./routes/authRoutes.js";
 import userRouter from "./routes/userRoute.js";
 import productRoutes from './routes/productRoutes.js'
 import { checkAuth } from "./middleware/checkAuth.js";
-import upload from "./uploadFile.js";
+import upload from "./middleware/uploadFile.js";
 import { fileURLToPath } from "url";
 
 const app = express();

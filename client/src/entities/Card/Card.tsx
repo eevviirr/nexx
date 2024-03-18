@@ -21,6 +21,7 @@ interface ICard {
 export const Card: FC<ICard> = forwardRef(
   (item, ref: LegacyRef<HTMLDivElement>) => {
     const { brand, price, model, photos, _id } = item;
+
     const userData = useAppSelector((state) => state.userSlice);
     const isFavorite = userData.user.favorites.find(
       (favoritesItem) => favoritesItem._id === _id
@@ -30,7 +31,7 @@ export const Card: FC<ICard> = forwardRef(
 
     const dispatch = useAppDispatch();
     const addToCart = () => {
-      dispatch(addItemToCart(item));
+      dispatch(addItemToCart({ brand, price, model, photos: [photos], _id }));
     };
     const navigate = useNavigate();
     return (
@@ -54,7 +55,15 @@ export const Card: FC<ICard> = forwardRef(
             favorite={favorite}
             setFavorite={() => {
               if (userData.isAuth) {
-                dispatch(addItemToFavorite(item));
+                dispatch(
+                  addItemToFavorite({
+                    brand,
+                    price,
+                    model,
+                    photos: [photos],
+                    _id,
+                  })
+                );
                 setFavorite(!favorite);
               } else {
                 navigate("/auth");

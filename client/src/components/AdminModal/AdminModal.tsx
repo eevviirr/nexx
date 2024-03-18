@@ -24,7 +24,7 @@ const AdminModal = forwardRef(
   }) => {
     const [productValues, setProductValues] = useState({
       model: "",
-      price: 0,
+      price: "",
       description: "",
       compound: "",
       brand: "",
@@ -38,7 +38,7 @@ const AdminModal = forwardRef(
       mutationFn: async () => {
         return axiosBase.post("/products/addproduct", {
           model: productValues.model,
-          price: productValues.price,
+          price: +productValues.price,
           description: productValues.description,
           compound: productValues.compound,
           brand: productValues.brand,
@@ -153,6 +153,14 @@ const AdminModal = forwardRef(
             value={productValues.colors}
             className="border-b w-full max-w-none"
             placeholder="Цвета"
+          />
+          <Input
+            setValue={(e) =>
+              setProductValues({ ...productValues, price: e.target.value })
+            }
+            value={productValues.price}
+            className="border-b w-full max-w-none"
+            placeholder="Цена"
           />
           <Button title="Добавить товар" className="w-full" />
         </form>
