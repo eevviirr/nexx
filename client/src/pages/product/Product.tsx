@@ -71,7 +71,10 @@ const Product: FC = () => {
         <div className="p-10 bg-white max-w-[550px] w-full">
           <form onSubmit={(e) => onSubmit(e)}>
             <span className="font-bold">Оставить отзыв</span>
-            <Textarea value={review} setValue={setReview} />
+            <Textarea
+              value={review}
+              setValue={(e) => setReview(e.target.value)}
+            />
             <Button title="Отправить" className="w-full" />
           </form>
         </div>

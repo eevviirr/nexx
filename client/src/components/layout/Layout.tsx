@@ -6,7 +6,7 @@ import { Footer } from "../footer/Footer";
 const Layout: FC = () => {
   return (
     
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen overflow-hidden">
       <Header />
       <div className="flex-grow">
         <Outlet />

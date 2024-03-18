@@ -3,23 +3,21 @@ import { FC } from "react";
 import style from "./drop.module.css";
 
 interface iDrop {
-    defaultValue: string;
-    options?: number[];
+  defaultValue: string;
+  options?: number[] | string[];
 }
 
 const Drop: FC<iDrop> = ({ defaultValue, options }) => {
-    return (
-        <select className={style.select}>
-            <option>
-                {defaultValue}
-            </option>
-            {options?.map((item) => (
-                <option key={item} className={style.option}>
-                    {item}
-                </option>
-            ))}
-        </select>
-    );
+  return (
+    <select className={style.select}>
+      <option>{defaultValue}</option>
+      {options?.map((item) => (
+        <option key={item} className={style.option}>
+          {item}
+        </option>
+      ))}
+    </select>
+  );
 };
 
 export { Drop };

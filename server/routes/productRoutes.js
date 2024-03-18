@@ -8,6 +8,8 @@ router.get("/filter", productControllers.getProductFilter);
 router.get("/", productControllers.getProducts);
 router.get("/:id", productControllers.getProduct);
 router.post("/:id/review", checkAuth, productControllers.addComment);
+router.delete("/:id/delete", checkAuth, productControllers.deleteProduct);
+
 
 router.post("/addproduct", productControllers.addProduct);
 router.post("/search", productControllers.searchProduct);

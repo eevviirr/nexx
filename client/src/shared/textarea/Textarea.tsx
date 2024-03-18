@@ -1,19 +1,22 @@
-import { FC } from "react";
+import { ChangeEvent, FC } from "react";
 
 interface ITextarea {
-    value: string;
-    setValue: (value: string) => void;
+  value: string;
+  setValue: (e: ChangeEvent<HTMLTextAreaElement>) => void;
+  placeholder?: string;
 }
 
-const Textarea: FC<ITextarea> = ({ value, setValue }) => {
-    return (
-        <textarea
-            name=''
-            id=''
-            value={value}
-            onChange={(e) => setValue(e.target.value)}
-            className='border w-full h-36 outline-none resize-none p-4'></textarea>
-    );
+const Textarea: FC<ITextarea> = ({ value, setValue, placeholder }) => {
+  return (
+    <textarea
+      name=""
+      id=""
+      placeholder={placeholder}
+      value={value}
+      onChange={setValue}
+      className="border w-full h-36 outline-none resize-none p-4"
+    />
+  );
 };
 
 export { Textarea };

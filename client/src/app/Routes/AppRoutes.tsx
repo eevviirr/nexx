@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
-import { authRoute, publicRoute } from "./routes.ts";
+import { adminRoute, authRoute, publicRoute } from "./routes.ts";
 import { ReqAuth } from "./ReqAuth.tsx";
 import { NotFound } from "src/pages/notFound/NotFound.tsx";
 import { Layout } from "src/components/layout/Layout.tsx";
@@ -27,6 +27,17 @@ const AppRoutes: FC = () => {
           />
         ))}
       </Route>
+      {adminRoute.map(({ Component, path }) => (
+        <Route
+          key={path}
+          path={path}
+          element={
+            <ReqAuth isAuth={isAuth}>
+              <Component />
+            </ReqAuth>
+          }
+        />
+      ))}
 
       <Route path="*" element={<NotFound />} />
     </Routes>

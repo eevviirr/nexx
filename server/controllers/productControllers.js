@@ -110,6 +110,17 @@ class ProductControllers {
         }
     }
 
+    async deleteProduct(req, res) {
+        try {
+            const { id } = req.params;
+            await Product.findByIdAndDelete(id);
+            res.status(200).json({ message: "товар удален" });
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({ message: "Ошибка при удалении товара" });
+        }
+    }
+
     async searchProduct(req, res) {
         try {
             const { searchValue } = req.body;
