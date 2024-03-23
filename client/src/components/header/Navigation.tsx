@@ -4,16 +4,16 @@ import { NavLink } from "react-router-dom";
 const Navigation: FC = () => {
   const navigateLink = [
     {
-      link: "/catalog/3",
+      link: "/catalog",
+      title: "Каталог",
+    },
+    {
+      link: "/catalog/new",
       title: "Новинки",
     },
     {
-      link: "/catalog/1",
-      title: "Одежда",
-    },
-    {
-      link: "/catalog/2",
-      title: "обувь",
+      link: "/catalog/sale",
+      title: "Скидки",
     },
   ];
   return (

@@ -1,7 +1,6 @@
 import { useMutation, useQuery } from "react-query";
 
 import { Button } from "src/shared/button/Button";
-import { Drop } from "src/shared/drop/Drop";
 import { axiosBase } from "src/app/http";
 import { Modal } from "src/shared/modal/Modal";
 import { useState } from "react";
@@ -47,7 +46,7 @@ const Admin: React.FC = () => {
         </button>
       </header>
       <AnimatePresence mode="popLayout">
-        {data?.map(({ _id, brand, model, photos, price, colors, sizes }) => (
+        {data?.map(({ _id, brand, model, photos, price }) => (
           <motion.div
             layout
             initial={{ opacity: 0, scale: 0 }}
@@ -70,10 +69,6 @@ const Admin: React.FC = () => {
             <div className="flex flex-col text-2xl max-lg:text-lg mr-auto max-xl:text-center max-xl:mr-0">
               <span className="uppercase font-bold">{brand}</span>
               <span className="uppercase">{model}</span>
-            </div>
-            <div className="">
-              <Drop defaultValue="Цвета" options={colors} />
-              <Drop defaultValue="Размер" options={sizes} />
             </div>
             <div className="flex gap-8 items-center">
               <span className="text-2xl max-lg:text-lg">{price} Руб.</span>

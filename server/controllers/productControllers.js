@@ -63,22 +63,16 @@ class ProductControllers {
                 model,
                 price,
                 description,
-                compound,
                 brand,
                 photos,
-                sizes,
-                colors,
             } = req.body;
 
             const newProduct = await Product.create({
                 model,
                 price,
                 description,
-                compound,
                 brand,
                 photos,
-                sizes,
-                colors,
             });
             newProduct.save();
             res.status(201).json({ message: "Товар успешно создан" });

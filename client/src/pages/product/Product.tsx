@@ -1,5 +1,5 @@
 import { FC, FormEvent, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/scrollbar";
@@ -16,8 +16,6 @@ import { axiosBase } from "src/app/http";
 import { Modal } from "src/shared/modal/Modal";
 import { Textarea } from "src/shared/textarea/Textarea";
 import { Button } from "src/shared/button/Button";
-import { Colors } from "src/components/colors/Colors";
-import { Drop } from "src/shared/drop/Drop";
 import { LikeButton } from "src/shared/likeButton/LikeButton";
 import { useAppSelector } from "src/app/hooks/useAppSelector";
 import { addItemToFavorite } from "src/app/store/slices/userSlice";
@@ -61,9 +59,11 @@ const Product: FC = () => {
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
-    axiosBase.post(`products/${productId}/review`, {
-      comment: review,
-    });
+    axiosBase
+      .post(`products/${productId}/review`, {
+        comment: review,
+      })
+      .then(() => setOpenModal(false));
   };
   return (
     <div className="container">
@@ -85,7 +85,7 @@ const Product: FC = () => {
             <img
               src={product?.photos[activePhoto]}
               alt=""
-              className="w-full h-full object-contain"
+              className="w-full h-full min-h-[600px] max-sm:min-h-max object-contain"
             />
           </div>
           <ul className="flex flex-col max-2xl:flex-row justify-between">
@@ -100,22 +100,13 @@ const Product: FC = () => {
             ))}
           </ul>
         </div>
-        <aside className="ml-auto max-w-[340px] py-16 max-lg:py-0 max-lg:ml-0 max-lg:max-w-full max-lg:grid max-lg:grid-cols-2 max-sm:grid-cols-1">
+        <aside className="ml-auto max-w-[340px] py-16 max-lg:py-0 max-lg:ml-0 max-lg:max-w-full max-lg:grid max-lg:grid-cols-2 max-sm:grid-cols-1 h-full">
           <span className="text-4xl font-bold">{product?.model}</span>
           <p className="text-base bloc py-5">{product?.description}</p>
           <span className="font-bold">{product?.price} р.</span>
 
-          <div className="mt-5">
-            <Colors colors={product?.colors} />
-
-            <div className="mt-10 flex justify-between">
-              <Drop defaultValue="Выберите размер" options={product?.sizes} />
-              <Link to={"/sizes"} className="opacity-50">
-                Мой размер
-              </Link>
-            </div>
-
-            <div className="flex mt-10 gap-5 justify-between items-center">
+          <div className="mt-10">
+            <div className="flex gap-5 justify-between items-center">
               <Button title="В корзину" />
               <LikeButton
                 favorite={favorite}
@@ -135,11 +126,7 @@ const Product: FC = () => {
           </span>
         </aside>
       </section>
-      <Description
-        compound={product?.compound}
-        descr={product?.description}
-        name={product?.model}
-      />
+      <Description descr={product?.description} name={product?.model} />
       <Information titles={["Отзывы"]} active={0}>
         <Swiper
           className="grid grid-cols-3 gap-10"

@@ -7,10 +7,9 @@ import { Information } from "src/components/information/Information";
 interface IDescription {
   name?: string;
   descr?: string;
-  compound?: string;
 }
 
-const Description: FC<IDescription> = ({ name, descr, compound }) => {
+const Description: FC<IDescription> = ({ name, descr }) => {
   const [active, setActive] = useState(0);
   return (
     <Information
@@ -26,17 +25,12 @@ const Description: FC<IDescription> = ({ name, descr, compound }) => {
             animate={{ x: 0 }}
             exit={{ x: "-100vw" }}
             transition={{ duration: 0.5, ease: "backOut" }}
-            className="grid grid-cols-2 gap-10 max-[634px]:grid-cols-1"
+            className=" gap-10 max-[634px]:grid-cols-1"
           >
             <div className="max-w-[455px]">
               <span className="font-bold text-2xl block">Nike</span>
               <span className="opacity-50 block pt-2 pb-5">{name}</span>
               <p>{descr}</p>
-            </div>
-            <div className="">
-              <span className="font-bold text-2xl">Состав</span>
-
-              <p>{compound}</p>
             </div>
           </motion.div>
         ) : (

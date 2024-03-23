@@ -20,7 +20,7 @@ const Favorites: React.FC = () => {
         </>
       ) : (
         <div className="container flex flex-col justify-center items-center pt-8">
-          <span className="text-center text-4xl font-bold">У вас не тизбранных</span>
+          <span className="text-center text-4xl font-bold">У вас нет избранных</span>
           <Button
             title="В каталог"
             className="mt-5"

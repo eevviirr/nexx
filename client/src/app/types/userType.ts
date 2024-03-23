@@ -16,11 +16,8 @@ export interface productType {
   model: string;
   price: number;
   description: string;
-  compound: string;
   brand: string;
   quantity: number;
 
   photos: string[];
-  sizes: number[];
-  colors: string[];
 }

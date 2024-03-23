@@ -109,13 +109,6 @@ const AdminModal = forwardRef(
             value={productValues.description}
             placeholder="Описание"
           />
-          <Textarea
-            setValue={(e) =>
-              setProductValues({ ...productValues, compound: e.target.value })
-            }
-            value={productValues.compound}
-            placeholder="Состав"
-          />
           <div className="flex justify-between flex-wrap">
             {images.map((item) => (
               <img src={item} alt="" className="w-40 h-40 object-contain" />
@@ -138,22 +131,6 @@ const AdminModal = forwardRef(
               />
             </label>
           </div>
-          <Input
-            setValue={(e) =>
-              setProductValues({ ...productValues, sizes: e.target.value })
-            }
-            value={productValues.sizes}
-            className="border-b w-full max-w-none"
-            placeholder="Размеры"
-          />
-          <Input
-            setValue={(e) =>
-              setProductValues({ ...productValues, colors: e.target.value })
-            }
-            value={productValues.colors}
-            className="border-b w-full max-w-none"
-            placeholder="Цвета"
-          />
           <Input
             setValue={(e) =>
               setProductValues({ ...productValues, price: e.target.value })
